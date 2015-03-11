@@ -21,7 +21,7 @@ Plus :
 
 9. It can run on an even or odd number of players , for the odd number the last player is awarded a "bye" only once per tournament. ( See : setByeScore(playerid) )
 10. It has support for game draws. For that the function :  reportMatch(winner, loser, draw = False) has an optional argument - True will award score 1 to both players ( this can be of course be modified to award just 1/2 a point )
-11. It implements OMW (Oppenent Match Wins) for example this is how the standings order look after using OMW :
+11. It implements OMW (Opponent Match Wins) for example this is how the standings order look after using OMW :
 
  ```   
  id |        name        | wins | matches | omw
@@ -45,8 +45,8 @@ Requirements to test this project:
 Steps (assuming you have Windows, it can be easily installed in a Linux based OS too ):
  1. Install vagrant in order to test it easily, if you don't have vagrant installed already check out the following link from UDACITY for instructions: https://www.udacity.com/wiki/ud197/install-vagrant
  2. Clone my (this) repository ( https://github.com/gtxll8/Project2-Tournament-Results/ ) , it contains the necessary files including vagrant setup file and the pg_config.sh modified to create the tournament DB and also to create tables, views and functions necessary  for the project.
- 3. Go to the cloned repositary, this will look ( in windows ) like this :
- "C:\<your home directoy>\GitHub\Project2-Tournament-Results\vagrant>" it will contain the following files / directory:
+ 3. Go to the cloned repository, this will look ( in windows ) like this :
+ "C:\<your home directory>\GitHub\Project2-Tournament-Results\vagrant>" it will contain the following files / directory:
  ```   
 11/03/2015  08:59    <DIR>          .
 11/03/2015  08:59    <DIR>          ..
@@ -69,7 +69,7 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
 ==> default: CREATE VIEW
 ==> default: INSERT 0 1 
  ```   
-  5. SSH to the box using your favorite terminal , credentials are as follow:
+  5. SSH to the box using your favourite terminal , credentials are as follow:
  ``` 
 Host: 127.0.0.1
 Port: 2222
@@ -79,7 +79,7 @@ Username: vagrant
   ``` 
   vagrant@vagrant-ubuntu-trusty-32:~$ scp -r vagrant@162.243.67.78:/vagrant/tournament .
  ``` 
- this will copy the entire directory with the neccessary files:
+ this will copy the entire directory with the necessary files:
   ``` 
 tournament_test_extended.py                                                                                           
 tournament.pyc                                                                                                        
@@ -114,7 +114,7 @@ The database schema is very simple but intuitive it contains the following relat
  ```
   - 'wins' view is the equivalent of standings and is used joined on 'omw' to find the correct rankings.
   
-FUNCTION getscores(int) returns a sum of all the players, played against a player's ID (int) and with that creating the 'omw' view for an easy join with 'wins' view. Thus ordering the rankings on two criterias, wins and omw.
+FUNCTION getscores(int) returns a sum of all the players, played against a player's ID (int) and with that creating the 'omw' view for an easy join with 'wins' view. Thus ordering the rankings on two criteria, wins and omw.
 
 To report a draw match function : reportMatch(winner, loser, draw = False) is called with optional argument 'draw = True'
 
