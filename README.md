@@ -97,7 +97,7 @@ tournament.py
 vagrant=>\i tournament.sql
  ```
  
-7. In order to test the system run 'tournament_test.py' to test default functionality and 'tournament_test_extended.py' to test all the functionalities for extra credits.
+ 7. In order to test the system run 'tournament_test.py' to test default functionality and    'tournament_test_extended.py' to test all the functionalities for extra credits.
 
 
 Notes and considerations :
