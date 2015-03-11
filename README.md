@@ -2,7 +2,7 @@
 
 Project Description:
 
-This is a project that uses a PostgeSQL database, supported by python modules, demonstrating a viable game tournament using the Swiss system. This project has two parts one is defining the schema and the relations between the tables and second is the code that will use it to support it.
+This is a project that uses a PostgreSQL database, supported by python modules, demonstrating a viable game tournament using the Swiss system. This project has two parts one is defining the schema and the relations between the tables and second is the code that will use it to support it.
 
 What does this project achieve:
 
