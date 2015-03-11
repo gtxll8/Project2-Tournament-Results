@@ -47,6 +47,7 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
  2. Clone my (this) repository ( https://github.com/gtxll8/Project2-Tournament-Results/ ) , it contains the necessary files including vagrant setup file and the pg_config.sh modified to create the tournament DB and also to create tables, views and functions necessary  for the project.
  3. Go to the cloned repository, this will look ( in windows ) like this :
  "C:\<your home directory>\GitHub\Project2-Tournament-Results\vagrant>" it will contain the following files / directory:
+
  ```   
 11/03/2015  08:59    <DIR>          .
 11/03/2015  08:59    <DIR>          ..
@@ -59,6 +60,7 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
  ``` 
  
 4. Issue 'vagrant up' this will start the vagrant environment locally, at the end of the script you should see the database tournament created and the tables/views/function :
+
  ```   
 ==> default: You are now connected to database "tournament" as user "vagrant".
 ==> default: CREATE TABLE
