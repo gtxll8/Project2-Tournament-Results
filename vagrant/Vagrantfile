@@ -5,21 +5,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "pg_config.sh"
-    config.vm.provider :digital_ocean do |provider, override|
-    override.ssh.private_key_path = '~/.ssh/id_rsa'
-    override.vm.box = 'digital_ocean'
-    override.vm.box_url = "https://github.com/smdahlen/vagrant-digitalocean/raw/
-master/box/digital_ocean.box"
-
-    provider.token = '8735372ded5aaef7c68765191e6dd8e88fd2d588ac227db0a41953a965
-1ed3c3'
-    provider.image = 'ubuntu-14-04-x32'
-    provider.region = 'nyc2'
-    provider.size = '512mb'
-  end
-
+  # config.vm.box = "hashicorp/precise32"
+  config.vm.box = "ubuntu/trusty32"
   config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 5000, host: 5000
 end
-
