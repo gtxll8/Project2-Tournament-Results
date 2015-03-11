@@ -119,7 +119,7 @@ The database schema is very simple but intuitive it contains the following relat
  ```
   - 'wins' view is the equivalent of standings and is used joined on 'omw' to find the correct rankings.
   
-FUNCTION getscores(int) returns a sum of all the players, played against a player's ID (int) and with that creating the 'omw' view for an easy join with 'wins' view. Thus ordering the rankings on two criteria, wins and omw.
+FUNCTION getscores(int) returns a sum of all the players scores, played against a chosen player's ID and with that creating the 'omw' view for an easy join with 'wins' view. Thus ordering the rankings on two criteria, wins and omw.
 
 To report a draw match function : reportMatch(winner, loser, draw = False) is called with optional argument 'draw = True'
 
