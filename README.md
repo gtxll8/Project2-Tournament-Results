@@ -1,5 +1,4 @@
 # Project2-Tournament-Results
-Tournament Results
 
 Project Description:
 
@@ -20,7 +19,7 @@ It passes all the requirements/tests asked for the final project in "Project2 To
 
 Plus :
 
-9. It can run an even or odd number of players , for the odd number the last player is awarded a "bye" only once per tournament. ( See : setByeScore(playerid) )
+9. It can run on an even or odd number of players , for the odd number the last player is awarded a "bye" only once per tournament. ( See : setByeScore(playerid) )
 10. It has support for game draws. For that the function :  reportMatch(winner, loser, draw = False) has an optional argument - True will award score 1 to both players ( this can be of course be modified to award just 1/2 a point )
 11. It implements OMW (Oppenent Match Wins) for example this is how the standings order look after using OMW :
 
