@@ -47,7 +47,7 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
  1. Install vagrant in order to test it easily, if you don't have vagrant installed already check out the following link from UDACITY for instructions: https://www.udacity.com/wiki/ud197/install-vagrant
  2. Clone my (this) repository ( https://github.com/gtxll8/Project2-Tournament-Results/ ) , it contains the necessary files including vagrant setup file and the pg_config.sh modified to create the tournament DB and also to create tables, views and functions necessary  for the project.
  3. Go to the cloned repositary, this will look ( in windows ) like this :
- "C:\<your home directoy>\GitHub\Project2-Tournament-Results\vagrant>" it will contain teh following files and directory:
+ "C:\<your home directoy>\GitHub\Project2-Tournament-Results\vagrant>" it will contain the following files / directory:
  ```   
 11/03/2015  08:59    <DIR>          .
 11/03/2015  08:59    <DIR>          ..
@@ -78,7 +78,7 @@ Username: vagrant
  ``` 
   6. Transfer the tournament directory from the GIT cloned directory , for your convenience you can scp it from my DigitalOcean project box with the following command ( user name and password as above ):
   ``` 
-  vagrant@vagrant-ubuntu-trusty-32:~$ scp -r vagrant@162.243.67.78:./vagrant/tournament .
+  vagrant@vagrant-ubuntu-trusty-32:~$ scp -r vagrant@162.243.67.78:/vagrant/tournament .
  ``` 
  this will copy the entire directory with the neccessary files:
   ``` 
