@@ -3,11 +3,11 @@ Tournament Results
 
 Project Description:
 
-This is a project that uses a PostgeSQL database, supported by python modules demonstrating a viable game tournament using the Swiss system. This project has two parts one is defining the schema and the relations between the tables and second is the code that will use it to support it.
+This is a project that uses a PostgeSQL database, supported by python modules, demonstrating a viable game tournament using the Swiss system. This project has two parts one is defining the schema and the relations between the tables and second is the code that will use it to support it.
 
 What does this project achieve:
 
-It passes all the requirements/tests asked for the final project in "Project2 Tournament Results" which are :
+It passes all the requirements/tests asked for the final project in "Project2 Tournament Results":
 
 1. Old matches can be deleted.
 2. Player records can be deleted.
@@ -45,8 +45,8 @@ Requirements to test this project:
 
 Steps (assuming you have Windows, it can be easily installed in a Linux based OS too ):
  1. Install vagrant in order to test it easily, if you don't have vagrant installed already check out the following link from UDACITY for instructions: https://www.udacity.com/wiki/ud197/install-vagrant
- 2. Clone my (this) repositary ( https://github.com/gtxll8/Project2-Tournament-Results/ ) , it contains the neccessary files including vagrant setup file and the pg_config.sh modified to create the tournament DB and the create tables, viewsand functions neccessary for the project.
- 3. Go to the cloned repositary, this will look in windows like this :
+ 2. Clone my (this) repository ( https://github.com/gtxll8/Project2-Tournament-Results/ ) , it contains the necessary files including vagrant setup file and the pg_config.sh modified to create the tournament DB and also to create tables, views and functions necessary  for the project.
+ 3. Go to the cloned repositary, this will look ( in windows ) like this :
  "C:\<your home directoy>\GitHub\Project2-Tournament-Results\vagrant>" it will contain teh following files and directory:
  ```   
 11/03/2015  08:59    <DIR>          .
@@ -58,7 +58,7 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
                2 File(s)            815 bytes
                4 Dir(s)  196,121,255,936 bytes free
  ``` 
-  4. Issue 'vagrant up' this will start the vagrant environment locally, at the end you should see the database tournament created and tables:
+  4. Issue 'vagrant up' this will start the vagrant environment locally, at the end of the script you should see the database tournament created and the tables/views/function :
  ```   
 ==> default: You are now connected to database "tournament" as user "vagrant".
 ==> default: CREATE TABLE
@@ -76,7 +76,7 @@ Host: 127.0.0.1
 Port: 2222
 Username: vagrant
  ``` 
-  6. Transfer the tournament directory from the cloned directory , for your convenience you can scp it from my DigitalOcean project box with the following command ( user name and password as above ):
+  6. Transfer the tournament directory from the GIT cloned directory , for your convenience you can scp it from my DigitalOcean project box with the following command ( user name and password as above ):
   ``` 
   vagrant@vagrant-ubuntu-trusty-32:~$ scp -r vagrant@162.243.67.78:./vagrant/tournament .
  ``` 
@@ -97,8 +97,65 @@ vagrant=>\i tournament.sql
 
 
 Notes and considerations :
+
+The database schema is very simple but intuitive it contains the following relations:
+ ``` 
+ Schema |        Name        |   Type   |  Owner
+--------+--------------------+----------+---------
+ public | matches            | table    | vagrant
+ public | matches_id_seq     | sequence | vagrant
+ public | omw                | view     | vagrant
+ public | players            | table    | vagrant
+ public | players_id_seq     | sequence | vagrant
+ public | scores             | table    | vagrant
+ public | scores_id_seq      | sequence | vagrant
+ public | tournaments        | table    | vagrant
+ public | tournaments_id_seq | sequence | vagrant
+ public | wins               | view     | vagrant
+ ```
+  - 'wins' view is the equivalent of standings and is used joined on 'omw' to find the correct rankings.
   
-  
+FUNCTION getscores(int) returns a sum of all the players, played against a player's ID (int) and with that creating the 'omw' view for an easy join with 'wins' view. Thus ordering the rankings on two criterias, wins and omw.
+
+To report a draw match function : reportMatch(winner, loser, draw = False) is called with optional argument 'draw = True'
+
+To award a 'bye' also function : reportMatch(winner, loser, draw = False) can be called with same player id for both winner and loser this will award a win but only once per tournament :
+ ```
+ id  | tournamentid | playerid | score | bye
+-----+--------------+----------+-------+-----
+ 40 |           11 |       30 |     0 | f
+ 41 |           11 |       30 |     1 | t
+ ```
+ 
+ Example of generating a tournament with odd number of players :
+  ```
+ def testPairings_9():
+    print "Testing a 9 players tournament:"
+    setNewTournament() ''' starting a new tournament'''
+    registerPlayer("John Flynt")
+    registerPlayer("Fluttershy")
+    registerPlayer("Applejack")
+    registerPlayer("Pinkie Pie")
+    registerPlayer("Lassy Kline")
+    registerPlayer("Gordon Blunt")
+    registerPlayer("Minty Sutton")
+    registerPlayer("Baine Vrent")
+    registerPlayer("Napoleon Bonaparte")
+    print "first round:"
+    pairings = swissPairings()
+    print pairings
+    standings = playerStandings()
+    [id1, id2, id3, id4, id5, id6, id7, id8, id9] = [row[0] for row in standings]
+    reportMatch(id1, id2)
+    reportMatch(id3, id4)
+    reportMatch(id5, id6)
+    reportMatch(id7, id8)
+    reportMatch(id9, id9) '''awarding the odd number player a 'bye' '''
+    print "player: ", id9, " is given a bye!"
+ ```
+
+ 
+
 
 
 
