@@ -57,7 +57,8 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
                2 File(s)            815 bytes
                4 Dir(s)  196,121,255,936 bytes free
  ``` 
-  4. Issue 'vagrant up' this will start the vagrant environment locally, at the end of the script you should see the database tournament created and the tables/views/function :
+ 
+4. Issue 'vagrant up' this will start the vagrant environment locally, at the end of the script you should see the database tournament created and the tables/views/function :
  ```   
 ==> default: You are now connected to database "tournament" as user "vagrant".
 ==> default: CREATE TABLE
@@ -69,13 +70,14 @@ Steps (assuming you have Windows, it can be easily installed in a Linux based OS
 ==> default: CREATE VIEW
 ==> default: INSERT 0 1 
  ```   
-  5. SSH to the box using your favourite terminal , credentials are as follow:
+5. SSH to the box using your favourite terminal , credentials are as follow:
  ``` 
 Host: 127.0.0.1
 Port: 2222
 Username: vagrant
  ``` 
-  6. Transfer the tournament directory from the GIT cloned directory , for your convenience you can scp it from my DigitalOcean project box with the following command ( user name and password as above ):
+ 
+6. Transfer the tournament directory from the GIT cloned directory , for your convenience you can scp it from my DigitalOcean project box with the following command ( user name and password as above ):
   ``` 
   vagrant@vagrant-ubuntu-trusty-32:~$ scp -r vagrant@162.243.67.78:/vagrant/tournament .
  ``` 
@@ -92,6 +94,7 @@ tournament.py
  ``` 
 vagrant=>\i tournament.sql
  ```
+ 
 7. In order to test the system run 'tournament_test.py' to test default functionality and 'tournament_test_extended.py' to test all the functionalities for extra credits.
 
 
