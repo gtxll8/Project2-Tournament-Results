@@ -6,9 +6,11 @@ from tournament import *
 
 
 def testPairings_8():
-    print "Testing a 9 players tournament:"
+    """This is for testing a 8 player tournament and 3 rounds of swiss tournament pairing
+    """
+    print "Testing a 8 players tournament:"
     setNewTournament("Las Vegas")
-    registerPlayer("Fluttershy")
+    registerPlayer("Fluttrshy")
     registerPlayer("Applejack")
     registerPlayer("Pinkie Pie")
     registerPlayer("Lassy Kline")
@@ -49,6 +51,8 @@ def testPairings_8():
 
 
 def testPairings_9():
+    """This is for testing a 9 player tournament , 3 rounds of swiss tournament pairing
+    """
     print "Testing a 9 players tournament:"
     setNewTournament("Las Vegas")
     registerPlayer("John Flynt")
@@ -82,7 +86,7 @@ def testPairings_9():
     reportMatch(id5, id6)
     reportMatch(id7, id8)
     reportMatch(id9, id9)
-    print "player: ", id9, " is givn a bye!"
+    print "player: ", id9, " is given a bye!"
     print "third round:"
     pairings = swissPairings()
     print pairings
