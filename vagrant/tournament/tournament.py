@@ -16,7 +16,7 @@ def deleteMatches():
        with the previous tournament ID's.
        All the other queries are referenced to the latest
        tournament ID , so there is no need to delete any
-       matches just set a new tournament ID;
+       matches just set a new one.
     """
     setNewTournament("London Calling")   # set a new tournament
 
@@ -25,7 +25,7 @@ def deletePlayers():
        records on the previous tournaments
        All the other queries are referenced to the latest
        tournament ID , so there is no need to delete any
-       players just set a new tournament ID
+       players just set a new one.
     """
     setNewTournament("Nashville")        # set a new tournament
 
@@ -62,7 +62,7 @@ def registerPlayer(name):
 
 
 def playerStandings():
-    """Returns a list of the players and their win records, sorted by wins.
+    """Returns a list of the players and their wining records, sorted by wins.
 
     The first entry in the list is the player in first place, or a player
     tied for first place if there is currently a tie OMW - (Opponent Match Wins) is used
@@ -91,7 +91,7 @@ def setByeScore(playerid):
        Select first a count of how many times player had been awarded a 'bye'
        in this tournament.
 
-       If not than insert into scores table a win setting the flag to 'true' in column 'bye'
+       If not than insert into scores table a win, than set the flag to 'true' in column 'bye'
 
     Args:
       playerid:  the id number of the player who is awarded a win
@@ -101,7 +101,7 @@ def setByeScore(playerid):
     cursor = conn.cursor()
     sql = "SELECT COALESCE(sum(CASE WHEN bye THEN 1 ELSE 0 END),0) FROM scores where playerid=%s AND tournamentid=%s;"
     cursor.execute(sql, [playerid, tournamentID])
-    bye_count = cursor.fetchone()[0]                # fetch count
+    bye_count = cursor.fetchone()[0]                # get a count
     if bye_count >= 1:                              # check if awarded more than one time
         score = 0
         bye = False
@@ -162,10 +162,10 @@ def swissPairings():
         name2: the second player's name
     """
     seen = set()                                                                # array to store checked pairs
-    swisspairings = []                                                          # array to store final result pairs
-    playersrank = getPlayersRank()                                              # get ranked list
-    for p1 in playersrank:                                                      # traverse list
-        for p2 in playersrank:                                                  # start checking against each one
+    swisspairings = []                                                          # array to store final resulted pairs
+    playersrank = getPlayersRank()                                              # get the ranked list
+    for p1 in playersrank:                                                      # traverse list for each ...
+        for p2 in playersrank:                                                  # ... start checking each adjacent
             if p1[0] != p2[0]:                                                  # continue if not itself
                 if p2[0] not in getPlayersPlayed(p1[0]):                        # check if not played before
                     if p2[0] not in seen and p1[0] not in seen:                 # also if not paired already
