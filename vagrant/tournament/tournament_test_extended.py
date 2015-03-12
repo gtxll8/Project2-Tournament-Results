@@ -6,8 +6,8 @@ from tournament import *
 
 
 def testPairings_8():
-    print "Testing a 8 players tournament:"
-    setNewTournament()
+    print "Testing a 9 players tournament:"
+    setNewTournament("Las Vegas")
     registerPlayer("Fluttershy")
     registerPlayer("Applejack")
     registerPlayer("Pinkie Pie")
@@ -50,7 +50,7 @@ def testPairings_8():
 
 def testPairings_9():
     print "Testing a 9 players tournament:"
-    setNewTournament()
+    setNewTournament("Las Vegas")
     registerPlayer("John Flynt")
     registerPlayer("Fluttershy")
     registerPlayer("Applejack")

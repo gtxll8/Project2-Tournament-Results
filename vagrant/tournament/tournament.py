@@ -29,41 +29,43 @@ def deletePlayers():
     cursor.execute(sql)
     conn.commit()
     conn.close()
-    setNewTournament()
+    setNewTournament("London Calling")  # also create a new tournament
+
 
 def countPlayers():
     """Returns the number of players currently registered."""
     conn = connect()
     cursor = conn.cursor()
     sql = "SELECT COUNT(*) FROM players;"
-    count = cursor.execute(sql)
-    players_count = cursor.fetchone()[0]
+    players_count = cursor.fetchone()[0]  # fetch only the count record
     conn.close()
     return players_count
 
+
 def registerPlayer(name):
     """Adds a player to the tournament database.
-  
-    The database assigns a unique serial id number for the player.  (This
-    should be handled by your SQL database schema, not in your Python code.)
+       it will also add to the record the current tournament
+       this will remove the necessity of deleting the players.
   
     Args:
       name: the player's full name (need not be unique).
     """
-    tournamentID = getTournament()
+    tournamentID = getTournament()  # get the last tournament
     conn = connect()
     cursor = conn.cursor()
     sql = "INSERT INTO players (name,tournamentID) values(%s,%s);"
-    cursor.execute(sql,[name,tournamentID])
+    cursor.execute(sql, [name, tournamentID])
     conn.commit()
-    conn.close()	
+    conn.close()
+
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
 
-    The first entry in the list should be the player in first place, or a player
-    tied for first place if there is currently a tie.
-    This is achieved using a join with 'omw' view, part of implementations of OMW - (Opponent Match Wins)
+    The first entry in the list is the player in first place, or a player
+    tied for first place if there is currently a tie OMW OMW - (Opponent Match Wins) is used
+
+    OMW is achieved using a join with 'omw' view.
 
     Returns:
       A list of tuples, each of which contains (id, name, wins, matches):
@@ -81,6 +83,7 @@ def playerStandings():
     conn.close()
     return rows
 
+
 def setByeScore(playerid):
     """Gives one player a bye (skipped round), only once per tournament
 
@@ -91,20 +94,21 @@ def setByeScore(playerid):
     conn = connect()
     cursor = conn.cursor()
     sql = "SELECT COALESCE(sum(CASE WHEN bye THEN 1 ELSE 0 END),0) FROM scores where playerid=%s AND tournamentid=%s;"
-    cursor.execute(sql,[playerid,tournamentID])
+    cursor.execute(sql, [playerid, tournamentID])
     bye_count = cursor.fetchone()[0]
     if bye_count >= 1:
-       score = 0
-       bye = False
+        score = 0
+        bye = False
     else:
-       score = 1
-       bye = True
+        score = 1
+        bye = True
     sql = "INSERT INTO scores(tournamentid,playerid,score,bye) values(%s,%s,%s,%s);"
-    cursor.execute(sql,[tournamentID,playerid,score,bye])
+    cursor.execute(sql, [tournamentID, playerid, score, bye])
     conn.commit()
     conn.close()
 
-def reportMatch(winner, loser, draw = False):
+
+def reportMatch(winner, loser, draw=False):
     """Records the outcome of a single match between two players.
        EXCEPTION : If function is called with same ID for winner and loser it
        will trigger a function setByeScore() to award a win. 
@@ -120,18 +124,18 @@ def reportMatch(winner, loser, draw = False):
     if winner == loser:
         setByeScore(winner)
     else:
-    	sql = "INSERT INTO scores(tournamentid,playerid,score) values(%s,%s,%s);"
-    	cursor.execute(sql,[tournamentID,winner,1])
-    	if draw:
-           cursor.execute(sql,[tournamentID,loser,1])
-    	else:
-           cursor.execute(sql,[tournamentID,loser,0])
-           sql = "INSERT INTO matches(pid1,pid2,draw,tournamentID) values(%s,%s,%s,%s);"
-           cursor.execute(sql,[winner,loser,draw,tournamentID])
+        sql = "INSERT INTO scores(tournamentid,playerid,score) values(%s,%s,%s);"
+        cursor.execute(sql, [tournamentID, winner, 1])
+        if draw:
+            cursor.execute(sql, [tournamentID, loser, 1])
+        else:
+            cursor.execute(sql, [tournamentID, loser, 0])
+            sql = "INSERT INTO matches(pid1,pid2,draw,tournamentID) values(%s,%s,%s,%s);"
+            cursor.execute(sql, [winner, loser, draw, tournamentID])
     conn.commit()
     conn.close()
- 
- 
+
+
 def swissPairings():
     """Returns a list of pairs of players for the next round of a match.
   
@@ -151,15 +155,14 @@ def swissPairings():
     swisspairings = []
     playersrank = getPlayersRank()
     for p1 in playersrank:
-	for p2 in playersrank:
-           if p1[0] != p2[0]:
-	      if p2[0] not in getPlayersPlayed(p1[0]):
-                 if p2[0] not in seen and p1[0] not in seen:
-			seen.update([p1[0],p2[0]])
-			swisspairings.append((p1[0],p1[1],p2[0],p2[1]))
+        for p2 in playersrank:
+            if p1[0] != p2[0]:
+                if p2[0] not in getPlayersPlayed(p1[0]):
+                    if p2[0] not in seen and p1[0] not in seen:
+                        seen.update([p1[0], p2[0]])
+                        swisspairings.append((p1[0], p1[1], p2[0], p2[1]))
 
-    
-    return swisspairings 
+    return swisspairings
 
 
 def getTournament():
@@ -176,16 +179,18 @@ def getTournament():
     conn.close()
     return tournamentID
 
-def setNewTournament():
+
+def setNewTournament(name):
     """Initialize a new tournament by generating a time stamp 
        and an incremental ID
     """
     conn = connect()
     cursor = conn.cursor()
-    sql = "INSERT INTO tournaments (set_timestamp) values(DEFAULT);"
-    cursor.execute(sql)
+    sql = "INSERT INTO tournaments (name) values(%s);"
+    cursor.execute(sql, [name])
     conn.commit()
     conn.close()
+
 
 def getPlayersRank():
     """Return a list of players IDs ordered by their rank desc
@@ -218,6 +223,7 @@ def getPlayersRank():
     conn.close()
     return rows
 
+
 def getPlayersPlayed(playerid):
     """Return a list of already played players ID
     """
@@ -225,16 +231,17 @@ def getPlayersPlayed(playerid):
     conn = connect()
     cursor = conn.cursor()
     sql = "select pid1, pid2 from matches where pid1=%s or pid2=%s;"
-    cursor.execute(sql, (playerid,playerid,))
+    cursor.execute(sql, (playerid, playerid,))
     rows = cursor.fetchall()
     conn.commit()
     conn.close()
     for row in rows:
-	 if row[0]==playerid:
-           returnedPlayers.extend([row[1]])                                                       
-         else:
-           returnedPlayers.extend([row[0]])
+        if row[0] == playerid:
+            returnedPlayers.extend([row[1]])
+        else:
+            returnedPlayers.extend([row[0]])
     return returnedPlayers
+
 
 def printTableResults():
     conn = connect()
@@ -245,8 +252,8 @@ def printTableResults():
     print " ------- STANDINGS RESULTS ------- "
     print columns
     for row in cursor.fetchall():
-        print "   ", row[0],"   ", row[1],"   ", row[2],"   ", row[3],"   ", row[4]
-    
+        print "   ", row[0], "   ", row[1], "   ", row[2], "   ", row[3], "   ", row[4]
+
     print " ------- END PRINT ---------------"
     conn.close()
     
