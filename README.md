@@ -37,7 +37,7 @@ Plus :
  62 | Minty Sutton       |    0 |       3 |   5
  ```
 
-12. It supports more than one tournament, there is no need to delete players or matches after a tournament, only one function used: setNewTournament(), this will initialize a new id and a time stamp.
+12. It supports more than one tournament, there is no need to delete players or matches after a tournament, only one function used: setNewTournament(), this will initialize an incremental id.
 
 
 Requirements to test this project:
