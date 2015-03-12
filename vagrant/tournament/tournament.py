@@ -12,40 +12,42 @@ def connect():
 
 
 def deleteMatches():
-    """Remove all the match records from the database."""
-    conn = connect()
-    cursor = conn.cursor()
-    sql = "DELETE FROM matches"
-    cursor.execute(sql)
-    conn.commit()
-    conn.close()
-
+    """This will set a new tournamnet and preserve old recrds
+       with the previous tournamnt ID's.
+       All the other queries are referenced to the latest
+       tournament ID , so there is no need to delete any
+       matches just set a new tournamnent ID;
+    """
+    setNewTournament("London Calling")   # create a new tournament
 
 def deletePlayers():
-    """Remove all the player records from the database."""
-    conn = connect()
-    cursor = conn.cursor()
-    sql = "DELETE FROM players"
-    cursor.execute(sql)
-    conn.commit()
-    conn.close()
-    setNewTournament("London Calling")  # also create a new tournament
+    """This will set a new tournament and preserve the players
+       records on the previous tournaments
+       All the other queries are referenced to the latest
+       tournament ID , so there is no need to delete any
+       players just set a new tournamnent ID
+    """
+    setNewTournament("Nashville")   # create a new tournament
 
 
 def countPlayers():
-    """Returns the number of players currently registered."""
+    """Returns the number of players registered in the current
+       tournament.
+    """
+    tournamentID = getTournament()       # get the last tournament
     conn = connect()
     cursor = conn.cursor()
-    sql = "SELECT COUNT(*) FROM players;"
-    players_count = cursor.fetchone()[0]  # fetch only the count record
+    sql = "SELECT COUNT(*) FROM players WHERE tournamentID = %s;"
+    cursor.execute(sql,[tournamentID])
+    players_count = cursor.fetchone()[0]  # return 0 if count none
     conn.close()
     return players_count
 
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
-       it will also add to the record the current tournament
-       this will remove the necessity of deleting the players.
+       it will also add the current tournament this will remove
+       the necessity of deleting the players.
   
     Args:
       name: the player's full name (need not be unique).

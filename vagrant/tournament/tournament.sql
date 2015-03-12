@@ -53,8 +53,7 @@ CREATE VIEW wins AS
     FROM players as p
     FULL OUTER JOIN scores as s
     ON p.ID = s.playerID
-    WHERE s.tournamentid IS NULL OR (s.tournamentid IN  (select MAX(id) FROM tournaments))
-    AND p.tournamentid IS NULL OR (p.tournamentid IN  (select MAX(id) FROM tournaments))
+    WHERE (p.tournamentid IN  (select MAX(id) FROM tournaments))
     GROUP BY p.id;
 
 
