@@ -8,8 +8,8 @@ What does this project achieve:
 
 It passes all the requirements/tests asked for the final project in "Project2 Tournament Results":
 
-1. Old matches can be deleted.
-2. Player records can be deleted.
+1. Old matches can be deleted. ( By setting a new tournament ) 
+2. Player records can be deleted. ( By setting a new tournament )
 3. After deleting, countPlayers() returns zero.
 4. After registering a player, countPlayers() returns 1.
 5. Players can be registered and deleted.
