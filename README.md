@@ -79,19 +79,8 @@ Port: 2222
 Username: vagrant
  ``` 
  
- 6. Transfer the tournament directory from the GIT cloned directory , for your convenience you can scp it from my DigitalOcean project box with the following command ( user name and password as above ):
-  ``` 
-  vagrant@vagrant-ubuntu-trusty-32:~$ scp -r vagrant@162.243.67.78:/vagrant/tournament .
- ``` 
- this will copy the entire directory with the necessary files:
-  ``` 
-tournament_test_extended.py                                                                                           
-tournament.pyc                                                                                                        
-tournament_test.py                                                                                                    
-tournament.sql                                                                                                        
-tournament.py  
-  ``` 
- 
+ 6. Transfer the tournament directory from the GIT cloned directory 
+
  Note: if the tables and views were not created on 'vagrant up' command, the schema creation can be done using psql command :
  ``` 
 vagrant=>\i tournament.sql
