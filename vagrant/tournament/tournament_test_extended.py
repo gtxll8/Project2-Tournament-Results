@@ -6,7 +6,7 @@ from tournament import *
 
 
 def testPairings_8():
-    """This is for testing a 8 player tournament and 3 rounds of swiss tournament pairing
+    """This is for testing an 8 player tournament and 3 rounds of swiss tournament pairing
     """
     print "Testing a 8 players tournament:"
     setNewTournament("Las Vegas")
